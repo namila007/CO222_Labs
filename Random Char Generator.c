@@ -5,7 +5,6 @@ int main(){
 
  int i, n,t;
    time_t e;
-   n = 5;
    char set [8]={'P','S','C','R','L','K','D','f'};
    /* Intializes random number generator */
    srand((unsigned) time(&e));
