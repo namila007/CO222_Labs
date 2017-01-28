@@ -17,7 +17,7 @@ int main(){
      t= rand() % 7;
   
       
-     printf("echo '%c %c'| ./a.out\n",set[n],set[t] );
+     printf("%c %c\n",set[n],set[t] );
     
 
    }
