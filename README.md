@@ -1,2 +1,3 @@
-# CO222_Labs
-Here i post all the work done in CO222 labs using C language 
+# CO222 Labs
+
+CO222 Programming Metholodgy Lab Classes implemented in C
