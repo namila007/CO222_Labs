@@ -19,7 +19,7 @@ Ascii Draw
 #define MAGENTA		5
 #define CYAN		6
 #define	WHITE		7
-
+//dd
 char *ck="checker";                      //declaring variables
 char *dn="donut";
 char *colourval[]={"black","red","green","yellow","blue","magenta","cyan","white"};
