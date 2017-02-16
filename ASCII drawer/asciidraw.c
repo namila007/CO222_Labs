@@ -23,16 +23,19 @@ Ascii Draw
 #define argsize_max 8
 #define box_max		8
 
-char *ck="checker";                      //declaring variables
-char *dn="donut";
+char *checkerchar="checker";                      //declaring variables
+char *donutchar="donut";
 char *coloursavailable[]={"black","red","green","yellow","blue","magenta","cyan","white"};
-int x,y,xbox,ybox,xx,yy,foregroundcolour=-1,backgroundcolour=-1;
-float outcir,incir,diam,outradi,inradi,r;
+int xaxis,yaxis,xaxisboxline,yaxisboxline,foregroundcolour=-1,backgroundcolour=-1;
+float diameter,outerradius,inradi,radius;
 
 
 void textcolor(int attr, int fg, int bg);
 void wrongcolours(int backgroundcolour, int foregroundcolour);
 void colourchecker(char **argvalue);
+int outercircleradius(int xaxis,,int yaxis,int radius);
+float diametertoradius(float diameter);
+void donutprint(int radius);
 
 
 void textcolor(int attr, int fg, int bg)
@@ -83,13 +86,13 @@ for (argsize = 0; argsize < argsize_max; argsize++)
 void checkerprint(){
 
 
-colourchecker(argvalue);
+	
 		
-		for(y=0;y< box_max	;y++){
-			for(ybox=0;ybox< box_max;ybox++){
-				for(x=0;x<argsize_max;x++){
+		for(yaxis=0;yaxis< box_max	;y++){
+			for(yaxisboxline=0;yaxisboxline< box_max;yaxisboxline++){
+				for(xaxis=0;xaxis<argsize_max;x++){
 					
-					for(xbox=0;xbox<box_max	;xbox++){
+					for(xaxisboxline=0;xaxisboxline<box_max	;xaxisboxline++){
 						if((x+y)%2==0){
 							textcolor(BRIGHT,backgroundcolour,foregroundcolour);	//changing colours
 							printf(" ");
@@ -113,38 +116,25 @@ colourchecker(argvalue);
 }
 
 
+float outercircleradius(int xaxis,,int yaxis,float radius){
 
-int main(int argc, char **argvalue){
+	 outerradius=((xaxis-radius)*(xaxis-radius)+(yaxis-radius)*(yaxis-radius));	
+	return outerradius;
 
-if(argc<4){                            //checking argsize are less or more
-	printf("Not enough arguments\n");
-	exit(0);
 }
-if(argc>4){
-	printf("Too many arguments\n");
-	exit(0);
+
+float diametertoradius(float diameter){
+	return (diameter/2);
 }
-else{
 
+void donutprint(int radius){
+	for (yaxis=0; yaxis<diameter; yaxis++){
 
-	if(strcmp(argvalue[1],ck)==0){   //checker printing function
-	
-		checkerprint();
-
-	}
-
-	else if (strcmp(argvalue[1],dn)==0){          //funtion for donut printer
-		
-	colourchecker(argvalue);
-		scanf("%f",&diam);
-
-		r=diam/2;
-		for (y=0; y<diam; y++){
-
-		for (x =0; x <diam; x++){
-			outradi=((x-r)*(x-r)+(y-r)*(y-r));
+		for (xaxis =0; xaxis <diameter; xaxis++){
 			
-			if((outradi)<(r*r) && outradi>(r/2)*(r/2)){
+			outerradius=outercircleradius(xaxis,yaxis,radius);
+			
+			if((outerradius)<(radius*radius) && outerradius>(radius/2)*(radius/2)){
 				textcolor(BRIGHT,backgroundcolour,foregroundcolour);	          //printing big circle
 				printf(" ");
 				textcolor(BRIGHT,foregroundcolour,backgroundcolour);	
@@ -153,7 +143,7 @@ else{
 
 			}
 			
-			else if((outradi)<=((r/2)*(r/2))){         //removing small circle from big one
+			else if((outerradius)<=((radius/2)*(radius/2))){         //removing small circle from big one
 				textcolor(BRIGHT,foregroundcolour,backgroundcolour);	
 				printf(" ");
                                         
@@ -171,6 +161,38 @@ else{
 		printf("\n");
 			
 		}
+
+
+
+
+}
+
+int main(int argc, char **argvalue){
+
+if(argc<4){                            //checking argsize are less or more
+	printf("Not enough arguments\n");
+	exit(0);
+}
+if(argc>4){
+	printf("Too many arguments\n");
+	exit(0);
+}
+else{
+
+
+	if(strcmp(argvalue[1],checkerchar)==0){   //checker printing function
+		colourchecker(argvalue);
+		checkerprint();
+
+	}
+
+	else if (strcmp(argvalue[1],donutchar)==0){          //funtion for donut printer
+		
+		colourchecker(argvalue);
+		scanf("%f",&diameter);
+
+		radius=diametertoradius(diameter);
+		donutprint(radius);
 
 
 			
