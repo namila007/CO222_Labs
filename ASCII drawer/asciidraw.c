@@ -19,26 +19,30 @@ Ascii Draw
 #define MAGENTA		5
 #define CYAN		6
 #define	WHITE		7
-#define argsize
 #define argsize_max 8
 #define box_max		8
+#define BOOL int
+#define TRUE		1
+#define FALSE 		0
 
 char *checkerchar="checker";                      //declaring variables
 char *donutchar="donut";
 char *coloursavailable[]={"black","red","green","yellow","blue","magenta","cyan","white"};
-int xaxis,yaxis,xaxisboxline,yaxisboxline,foregroundcolour=-1,backgroundcolour=-1;
+int xaxis,yaxis,xaxisboxline,yaxisboxline,foregroundcolour=-1,backgroundcolour=-1,divisiblebytwo,argsize;
 float diameter,outerradius,inradi,radius;
 
-
-void textcolor(int attr, int fg, int bg);
-void wrongcolours(int backgroundcolour, int foregroundcolour);
+//header functions
+void textcolor(int attr,int fg,int bg);
+void wrongcolours(int backgroundcolour,int foregroundcolour);
 void colourchecker(char **argvalue);
-int outercircleradius(int xaxis,,int yaxis,int radius);
 float diametertoradius(float diameter);
 void donutprint(int radius);
+BOOL moduloxy(int xaxis,int yaxis);
+float radiussq(float radius);
+float miniradiussq(float radius);
+float outercircleradius(int xaxis,int yaxis,float radius);
 
-
-void textcolor(int attr, int fg, int bg)
+void textcolor(int attr,int fg,int bg)
 {	char command[13];
 
 	/* Command is the control command to the terminal */
@@ -51,7 +55,8 @@ void textcolor(int attr, int fg, int bg)
 
 
 
-void wrongcolours(int backgroundcolour, int foregroundcolour){
+void wrongcolours(int backgroundcolour,int foregroundcolour){
+	//this check the input colours are available or wrong
 	if (backgroundcolour==-1 )
 	{
 		printf("Background color is not available\n");
@@ -67,33 +72,48 @@ void wrongcolours(int backgroundcolour, int foregroundcolour){
 void colourchecker(char **argvalue){
 	/* this is for checking the background and foreground colour inputs are valid or not
 	*/
-for (argsize = 0; argsize < argsize_max; argsize++)
-	{
+for (argsize=0;argsize<argsize_max;argsize++){
 		 if(strcmp(argvalue[2],coloursavailable[argsize])==0){
 		 	backgroundcolour=argsize;
 		 }}
-	for (argsize = 0; argsize < argsize_max; argsize++)
+	for (argsize=0;argsize<argsize_max;argsize++)
 	{	 
 		 if(strcmp(argvalue[3],coloursavailable[argsize])==0){
 		 	foregroundcolour=argsize;
 		 }
 		 	
 	}
-	void wrongcolours(backgroundcolour,foregroundcolour);
+	wrongcolours(backgroundcolour,foregroundcolour);
+
+}
+
+BOOL moduloxy(int xaxis,int yaxis){
+	/* this check the x and y axis coordinates are divisible by 2 or not
+	*/
+	divisiblebytwo=((xaxis+yaxis)%2);
+	if(divisiblebytwo==0){
+		return FALSE;
+	}else
+	{
+		return TRUE;
+	}
 
 }
 
 void checkerprint(){
+	/* fucntion for print the checker box
+	*/
 
 
-	
-		
-		for(yaxis=0;yaxis< box_max	;y++){
+	for(yaxis=0;yaxis<box_max;yaxis++){
+
 			for(yaxisboxline=0;yaxisboxline< box_max;yaxisboxline++){
-				for(xaxis=0;xaxis<argsize_max;x++){
+
+				for(xaxis=0;xaxis<argsize_max;xaxis++){
 					
 					for(xaxisboxline=0;xaxisboxline<box_max	;xaxisboxline++){
-						if((x+y)%2==0){
+
+						if(moduloxy(xaxis,yaxis)==0){
 							textcolor(BRIGHT,backgroundcolour,foregroundcolour);	//changing colours
 							printf(" ");
 
@@ -116,25 +136,44 @@ void checkerprint(){
 }
 
 
-float outercircleradius(int xaxis,,int yaxis,float radius){
+float outercircleradius(int xaxis,int yaxis,float radius){
+	/* calculating large circle radius circle equation
+	*/
 
-	 outerradius=((xaxis-radius)*(xaxis-radius)+(yaxis-radius)*(yaxis-radius));	
+	outerradius=((xaxis-radius)*(xaxis-radius)+(yaxis-radius)*(yaxis-radius));	
 	return outerradius;
 
 }
 
 float diametertoradius(float diameter){
+	/* returning radius of the circle
+	*/
+
 	return (diameter/2);
 }
 
-void donutprint(int radius){
-	for (yaxis=0; yaxis<diameter; yaxis++){
+float radiussq(float radius){
+	/* getting square for radius of big circle
+	*/
 
-		for (xaxis =0; xaxis <diameter; xaxis++){
+	return (radius*radius);
+}
+float miniradiussq(float radius){
+	/* getting mini circle radius square
+	*/
+	return ((radius/2)*(radius/2));
+}
+
+void donutprint(int radius){
+	/* fucntion for print the donut
+	*/
+	for (yaxis=0;yaxis<diameter;yaxis++){
+
+		for (xaxis =0;xaxis<diameter;xaxis++){
 			
 			outerradius=outercircleradius(xaxis,yaxis,radius);
 			
-			if((outerradius)<(radius*radius) && outerradius>(radius/2)*(radius/2)){
+			if((outerradius)<radiussq(radius) && outerradius>miniradiussq(radius)){
 				textcolor(BRIGHT,backgroundcolour,foregroundcolour);	          //printing big circle
 				printf(" ");
 				textcolor(BRIGHT,foregroundcolour,backgroundcolour);	
@@ -143,7 +182,7 @@ void donutprint(int radius){
 
 			}
 			
-			else if((outerradius)<=((radius/2)*(radius/2))){         //removing small circle from big one
+			else if((outerradius)<=miniradiussq(radius)){         //removing small circle from big one
 				textcolor(BRIGHT,foregroundcolour,backgroundcolour);	
 				printf(" ");
                                         
@@ -167,7 +206,7 @@ void donutprint(int radius){
 
 }
 
-int main(int argc, char **argvalue){
+int main(int argc,char **argvalue){
 
 if(argc<4){                            //checking argsize are less or more
 	printf("Not enough arguments\n");
@@ -193,22 +232,12 @@ else{
 
 		radius=diametertoradius(diameter);
 		donutprint(radius);
-
-
-			
-		
 	}
 	else{
 		printf("Requested figure is not available\n" );  //if figures are not available
 		exit(0);
-
 	}
-
-
-
-		textcolor(RESET, WHITE, BLACK);	
+	textcolor(RESET, WHITE, BLACK);	
 }
 	return 0;
-	
-	
 }
