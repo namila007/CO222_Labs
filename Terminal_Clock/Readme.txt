@@ -1,15 +1,18 @@
 Bash based live updating clock with colour changes
 using ncurses library now
 
+colours available;
+	black, red, green, yellow, blue, magenta, cyan, white
+
 to compile
-make
+	make
 
 to run;
-./nclock
+	./nclock
 
 to see more options
-./nclock -h
+	./nclock -h
 
 to change colours
-./nclock -C<colour>  or ./nclock -C <colour> 
+	./nclock -C<colour>  or ./nclock -C <colour> 
 
