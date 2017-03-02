@@ -1,2 +1,2 @@
 all:
-	gcc -o nclock nclock.c -lncurses
+	gcc -o Terminal_clock Terminal_clock.c -lncurses
