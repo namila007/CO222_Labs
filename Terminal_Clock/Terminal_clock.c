@@ -57,12 +57,15 @@ char colour='C';
 char help='h';
 int forecolour=7;
 
-WINDOW *HOUR1,*HOUR2,*MIN1,*MIN2,*SEC1,*SEC2,*DATE,*DOT1,*DOT2;
+WINDOW *HOUR1,*HOUR2,*MIN1,*MIN2,*SEC1,*SEC2,*DATE,*DOT1,*DOT2; //declaring ncurses windows
 
 
 
 
 void intcolours(){
+	/*
+	colour pairs ncurses library
+	*/
 	
 	init_pair(1,BACKGROUND,forecolour);
 	init_pair(2,forecolour,BACKGROUND);
@@ -164,16 +167,18 @@ void digitprint(int numprint, WINDOW *win){
 
 
 void initializewindows(){
-
-HOUR1= create_newwin(ROW_SIZE,COL_SIZE,1,1);
-HOUR2= create_newwin(ROW_SIZE,COL_SIZE,1,8);
-DOT1= create_newwin(ROW_SIZE,COL_SIZE,1,14);
-MIN1= create_newwin(ROW_SIZE,COL_SIZE,1,20);
-MIN2= create_newwin(ROW_SIZE,COL_SIZE,1,27);
-DOT2= create_newwin(ROW_SIZE,COL_SIZE,1,33);
-SEC1= create_newwin(ROW_SIZE,COL_SIZE,1,39);
-SEC2= create_newwin(ROW_SIZE,COL_SIZE,1,46);
-DATE= create_newwin(DATE_ROW,DATE_COL,7,22);
+	/*
+	innitializing ncruses windows for each digits
+	*/
+	HOUR1= create_newwin(ROW_SIZE,COL_SIZE,1,1);
+	HOUR2= create_newwin(ROW_SIZE,COL_SIZE,1,8);
+	DOT1= create_newwin(ROW_SIZE,COL_SIZE,1,14);
+	MIN1= create_newwin(ROW_SIZE,COL_SIZE,1,20);
+	MIN2= create_newwin(ROW_SIZE,COL_SIZE,1,27);
+	DOT2= create_newwin(ROW_SIZE,COL_SIZE,1,33);
+	SEC1= create_newwin(ROW_SIZE,COL_SIZE,1,39);
+	SEC2= create_newwin(ROW_SIZE,COL_SIZE,1,46);
+	DATE= create_newwin(DATE_ROW,DATE_COL,7,22);
 }
 
 int colourchecker(char **argv,int argcount){
@@ -289,6 +294,9 @@ void errorprint(int argc, char  **argv){
 
 
 void refreshwins(){
+	/*
+	refreshing ncurses windows
+	*/
 	wrefresh(HOUR1);
 	wrefresh(HOUR2);
 	wrefresh(MIN1);
@@ -301,6 +309,9 @@ void refreshwins(){
 }
 
 void clearwins(){
+	/*
+	clearing ncurses windows
+	*/
 	wclear(HOUR1);
 	wclear(HOUR2);
 	wclear(MIN1);

@@ -8,11 +8,11 @@ to compile
 	make
 
 to run;
-	./nclock
+	./Terminal_clock
 
 to see more options
-	./nclock -h
+	./Terminal_clock -h
 
 to change colours
-	./nclock -C<colour>  or ./nclock -C <colour> 
+	./Terminal_clock -C<colour>  or ./Terminal_clock -C <colour> 
 
