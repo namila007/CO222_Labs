@@ -1,3 +1,5 @@
+#Terminal Clock
+
 Bash based live updating clock with colour changes
 using `ncurses` library now( make sure you have *ncurses*) library
 
