@@ -1,18 +1,18 @@
 Bash based live updating clock with colour changes
-using 'ncurses' library now( make sure you have *ncurses*) library
+using `ncurses` library now( make sure you have *ncurses*) library
 
 colours available;
 	black, red, green, yellow, blue, magenta, cyan, white
 
 to compile
-	'make'
+	`make`
 
 to run;
-	'./Terminal_clock'
+	`./Terminal_clock`
 
 to see more options
-	'./Terminal_clock -h'
+	`./Terminal_clock -h`
 
 to change colours
-	'./Terminal_clock -C<colour>'  or './Terminal_clock -C <colour>' 
+	`./Terminal_clock -C<colour>`  or `./Terminal_clock -C <colour>` 
 
